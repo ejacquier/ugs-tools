@@ -1,0 +1,22 @@
+{
+  "name": "ugs-tools",
+  "version": "1.0.0",
+  "description": "A set of tools for using Unity Gaming Services",
+  "main": "cc-watcher.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ejacquier/ugs-tools.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ejacquier/ugs-tools/issues"
+  },
+  "homepage": "https://github.com/ejacquier/ugs-tools#readme",
+  "dependencies": {
+    "axios": "^0.27.2"
+  }
+}

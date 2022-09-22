@@ -1,0 +1,5 @@
+// see https://services.docs.unity.com/docs/admin-auth#service-accounts for creating Service Account with Unity Dashboard and authenticate with Admin APIs
+module.exports = {
+  'key_id' : '<your service account key id>',
+  'secret_key' : '<your service account secret key>'
+}
