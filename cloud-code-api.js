@@ -1,5 +1,7 @@
 const axios = require('axios');
 const config = require('./config');
+var fs = require('fs');
+const inScriptParameters = require('./in-script-parameters');
 
 const projectId = "909ac39f-4f79-425c-8950-e2939318dbae";
 const environmentId = "dc764703-b131-4b2e-9877-5dec8545a3be";
@@ -21,7 +23,7 @@ const list = async () => {
   }
 };
 
-list();
+//list();
 
 const get = async (scriptName) => {
   try {
@@ -35,7 +37,7 @@ const get = async (scriptName) => {
 
 //get("Test");
 
-const create = async (body) => {
+const apiCreate = async (body) => {
   try {
       const url = `https://services.api.unity.com/cloud-code/v1/projects/${projectId}/environments/${environmentId}/scripts`
       const res = await axios.post(url, body, headers);
@@ -60,6 +62,21 @@ const createBody = {
 }
 
 //create(createBody);
+
+const create = async (filePath, params) => {
+  
+  var path = process.cwd();
+  var buffer = fs.readFileSync(path + "\\" + filepath);
+  var fileContent = buffer.toString();
+  
+  try {
+      const url = `https://services.api.unity.com/cloud-code/v1/projects/${projectId}/environments/${environmentId}/scripts`
+      const res = await axios.post(url, body, headers);
+      console.log(res.data);
+  } catch (err) {
+      console.error(err);
+  }
+};
 
 const update = async (scriptName, body) => {
   try {
@@ -108,4 +125,25 @@ const publish = async (scriptName) => {
 
 //publish("new_from_api");
 
+//Convert inScriptParameters parsing output to Parameters Array for API call
+function convertParamsForApi(scriptParams){
+  var parametersArray = [];
+  
+  Object.keys(scriptParams).forEach(function(key) {
+  
+    //console.log("Key: " + scriptParams[key]);
+    console.log("Key: " + JSON.stringify(scriptParams[key]));
+    var object = {};
+    var value = scriptParams[key];
+    object["name"] = key;
+    if (value.type)
+      object["type"] = value.type;
+    if (value.required)
+      object["required"] = value.required;
+  
+    parametersArray.push(object);
+  });
+  return parametersArray;
+}
 
+module.exports = { list, get, create, remove, publish };
